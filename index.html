@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Quiz - Descubra seu Dom</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .progress-bar {
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <div class="spinner"></div>
+        <div>
+            <p>Você está acessando:</p>
+            <h1>Higor Lopes Hub</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="logo">
+            <img src="logo.png">
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+        </div>
+        <form id="quizForm">
+            <!-- Perguntas serão inseridas aqui via JS -->
+        </form>
+        <button type="submit" class="btn" id="nextPageButton">Próxima Página <i class="fa-solid fa-square-caret-right"></i></button>
+        <p class="footer">Desenvolvido por Higor Lopes <i class="fa-solid fa-meteor"></i></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

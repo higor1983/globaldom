@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Estilos para cada dom */
+        .apostolo {
+            background-color: #0018FD;
+            width: 0%;
+        }
+        .profeta {
+            background-color: #f30000;
+            width: 0%;
+        }
+        .evangelista {
+            background-color: #fdac00;
+            width: 0%;
+        }
+        .pastor {
+            background-color: #252525;
+            width: 0%;
+        }
+        .mestre {
+            background-color: #b800fd;
+            width: 0%;
+        }
+        /* Adicionar outros estilos conforme necessário */
+    </style>
+    <title>Resultado do Quiz</title>
+</head>
+<body>
+    <div class="container">
+        <div id="resultado">
+            <div id="dom-img">
+                <!-- A imagem será exibida aqui -->
+            </div>
+            <p id="descricao"></p>
+            <div>
+                <p class="label">Apóstolo:</p>
+                <div class="progress-bar-container-result">
+                    <div class="progress-bar-result apostolo"></div>
+                </div>
+
+                <p class="label">Profeta:</p>
+                <div class="progress-bar-container-result">
+                    <div class="progress-bar-result profeta"></div>
+                </div>
+
+                <p class="label">Evangelista:</p>
+                <div class="progress-bar-container-result">
+                    <div class="progress-bar-result evangelista"></div>
+                </div>
+
+                <p class="label">Pastor:</p>
+                <div class="progress-bar-container-result">
+                    <div class="progress-bar-result pastor"></div>
+                </div>
+
+                <p class="label">Mestre:</p>
+                <div class="progress-bar-container-result">
+                    <div class="progress-bar-result mestre"></div>
+                </div>
+            </div>
+            <p class="footer">Desenvolvido por Higor Lopes <i class="fa-solid fa-meteor"></i></p>
+        </div>
+    </div>
+
+    <script>
+        // Definir os dons e descrições
+        const dons = {
+            apostolo: `<div class="don-descricao">O Apóstolo é um pioneiro, alguém que abre caminhos e estabelece fundamentos. Sua missão é levar a mensagem de Deus para novos lugares, construindo bases sólidas para o crescimento espiritual.</div>`,
+            profeta: `<div class="don-descricao">O Profeta é a voz de Deus para o povo, trazendo direção, exortação e revelação. Ele tem sensibilidade espiritual aguçada e discernimento para perceber o que Deus está falando em cada tempo.</div>`,
+            evangelista: `<div class="don-descricao">O Evangelista é movido por uma paixão ardente pelas almas perdidas. Seu chamado é compartilhar as boas-novas de Cristo com ousadia, levando pessoas a um encontro transformador com Deus.</div>`,
+            pastor: `<div class="don-descricao">O Pastor é um cuidador, alguém que protege, orienta e alimenta espiritualmente o rebanho de Deus. Ele tem um coração de compaixão e se preocupa com o bem-estar das pessoas.</div>`,
+            mestre: `<div class="don-descricao">O Mestre é aquele que ensina com clareza e profundidade, trazendo revelação sobre a Palavra de Deus. Seu dom é tornar o conhecimento acessível, ajudando os cristãos a compreenderem e aplicarem a verdade.</div>`
+        };
+
+        // Pega as respostas do quiz enviadas pela página anterior
+        const respostas = JSON.parse(localStorage.getItem('respostas')); // Supõe que as respostas foram salvas no localStorage
+        const pontos = {
+            apostolo: 0,
+            profeta: 0,
+            evangelista: 0,
+            pastor: 0,
+            mestre: 0
+        };
+
+        // Lógica de cálculo para cada dom
+        pontos.apostolo = respostas[0] + respostas[5] + respostas[10] + respostas[15] + respostas[20];
+        pontos.profeta = respostas[1] + respostas[6] + respostas[11] + respostas[16] + respostas[21];
+        pontos.evangelista = respostas[2] + respostas[7] + respostas[12] + respostas[17] + respostas[22];
+        pontos.pastor = respostas[3] + respostas[8] + respostas[13] + respostas[18] + respostas[23];
+        pontos.mestre = respostas[4] + respostas[9] + respostas[14] + respostas[19] + respostas[24];
+
+        // Total máximo de pontos possíveis
+        const totalMaximo = 5 * 5;
+        const totalObtido = respostas.reduce((acc, val) => acc + val, 0);
+
+        // Calcular porcentagem de cada dom
+        const porcentagens = {};
+        for (let dom in pontos) {
+            porcentagens[dom] = Math.round((pontos[dom] / totalMaximo) * 100);
+        }
+
+        // Ordena para pegar o dom com maior pontuação
+        let domMaior = Object.keys(pontos).reduce((a, b) => pontos[a] > pontos[b] ? a : b);
+
+        // Exibir resultados
+        document.getElementById('descricao').innerHTML = dons[domMaior];
+        document.getElementById('dom-img').innerHTML = `<img src="img/${domMaior}.png" alt="${domMaior}">`;
+
+        document.querySelector('.apostolo').style.width = `${porcentagens.apostolo}%`;
+        document.querySelector('.profeta').style.width = `${porcentagens.profeta}%`;
+        document.querySelector('.evangelista').style.width = `${porcentagens.evangelista}%`;
+        document.querySelector('.pastor').style.width = `${porcentagens.pastor}%`;
+        document.querySelector('.mestre').style.width = `${porcentagens.mestre}%`;
+
+    </script>
+</body>
+</html>
